@@ -1,4 +1,5 @@
 ﻿using Board;
+using Chess;
 using System.Security.Cryptography.X509Certificates;
 
 namespace ChessGame
@@ -41,6 +42,14 @@ namespace ChessGame
                 Console.Write(peca);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+        }
+
+        public static PosicaoXadrez LerPosicaoXadrez()
+        {
+            string posicao = Console.ReadLine();
+            char coluna = posicao[0];
+            int linha = int.Parse(posicao[1] + "");
+            return new PosicaoXadrez(coluna, linha);
         }
     }
 }

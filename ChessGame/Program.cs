@@ -10,14 +10,21 @@ namespace ChessGame
         {
             try
             {
-                Tabuleiro tabuleiro = new Tabuleiro(8, 8);
-                tabuleiro.ColocarPeca(new Torre(Cor.Preta, tabuleiro), new Posicao(0, 0));
-                tabuleiro.ColocarPeca(new Torre(Cor.Preta, tabuleiro), new Posicao(1, 3));
-                tabuleiro.ColocarPeca(new Rei(Cor.Preta, tabuleiro), new Posicao(0, 2));
+                ChessMatch chessMatch = new ChessMatch();
 
-                tabuleiro.ColocarPeca(new Torre(Cor.Branca, tabuleiro), new Posicao(3, 5));
+                while (!chessMatch.Finished)
+                {
+                    Console.Clear();
+                    Tela.ImprimirTabuleiro(chessMatch.Tabuleiro);
 
-                Tela.ImprimirTabuleiro(tabuleiro);
+                    Console.Write("\nOrigem: ");
+                    Posicao origem = Tela.LerPosicaoXadrez().ArrayPosition();
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.LerPosicaoXadrez().ArrayPosition();
+
+                    chessMatch.MovePiece(origem, destino);
+                }
+
             }
             catch (TabuleiroException e) 
             {
