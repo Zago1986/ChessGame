@@ -1,5 +1,6 @@
 ﻿using Board;
 using Chess;
+using ChessGame.Board;
 
 namespace ChessGame
 {
@@ -7,9 +8,21 @@ namespace ChessGame
     {
         static void Main(string[] args)
         {
-            PosicaoXadrez position = new PosicaoXadrez('a', 1);
-            Console.WriteLine(position);
-            Console.WriteLine(position.ArrayPosition());
+            try
+            {
+                Tabuleiro tabuleiro = new Tabuleiro(8, 8);
+                tabuleiro.ColocarPeca(new Torre(Cor.Preta, tabuleiro), new Posicao(0, 0));
+                tabuleiro.ColocarPeca(new Torre(Cor.Preta, tabuleiro), new Posicao(1, 3));
+                tabuleiro.ColocarPeca(new Rei(Cor.Preta, tabuleiro), new Posicao(0, 2));
+
+                tabuleiro.ColocarPeca(new Torre(Cor.Branca, tabuleiro), new Posicao(3, 5));
+
+                Tela.ImprimirTabuleiro(tabuleiro);
+            }
+            catch (TabuleiroException e) 
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
