@@ -1,6 +1,4 @@
-﻿using ChessGame.Board;
-
-namespace Board
+﻿namespace Board
 {
     internal class Tabuleiro
     {
@@ -50,6 +48,10 @@ namespace Board
         public bool PosicaoValida(Posicao posicao)
         {
             if (posicao.Linha < 0 || posicao.Linha >= Linhas)
+            {
+                return false;
+            }
+            if (posicao.Coluna < 0 || posicao.Coluna >= Colunas)
             {
                 return false;
             }

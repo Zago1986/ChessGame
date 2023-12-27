@@ -1,6 +1,5 @@
 ﻿using Board;
 using Chess;
-using ChessGame.Board;
 
 namespace ChessGame
 {
@@ -19,6 +18,10 @@ namespace ChessGame
 
                     Console.Write("\nOrigem: ");
                     Posicao origem = Tela.LerPosicaoXadrez().ArrayPosition();
+
+                    bool[,] posicoesPossiveis = chessMatch.Tabuleiro.Peca(origem).MovimentosPossiveis();
+                    Console.Clear();
+                    Tela.ImprimirTabuleiro(chessMatch.Tabuleiro, posicoesPossiveis);
                     Console.Write("Destino: ");
                     Posicao destino = Tela.LerPosicaoXadrez().ArrayPosition();
 

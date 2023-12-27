@@ -1,6 +1,6 @@
 ﻿namespace Board
 {
-    internal class Peca
+    abstract class Peca
     {
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
@@ -19,5 +19,13 @@
         {
             QtdMovimentos++;
         }
+
+        public bool IsAble(Posicao posicao)
+        {
+            Peca peca = Tabuleiro.Peca(posicao);
+            return peca == null || peca.Cor != Cor;
+        }
+
+        public abstract bool[,] MovimentosPossiveis();
     }
 }

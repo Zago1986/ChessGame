@@ -29,9 +29,10 @@ namespace Chess
 
         private void InsertPieces()
         {
-            Tabuleiro.ColocarPeca(new Torre(Cor.Preta, Tabuleiro), new PosicaoXadrez('c', 1).ArrayPosition());
+            Tabuleiro.ColocarPeca(new Rei(Cor.Preta, Tabuleiro), new PosicaoXadrez('c', 1).ArrayPosition());
             Tabuleiro.ColocarPeca(new Torre(Cor.Preta, Tabuleiro), new PosicaoXadrez('c', 2).ArrayPosition());
             Tabuleiro.ColocarPeca(new Torre(Cor.Branca, Tabuleiro), new PosicaoXadrez('c', 3).ArrayPosition());
+            Tabuleiro.ColocarPeca(new Rei(Cor.Branca, Tabuleiro), new PosicaoXadrez('c', 6).ArrayPosition());
         }
     }
 }

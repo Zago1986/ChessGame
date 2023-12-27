@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChessGame.Board
+namespace Board
 {
     internal class TabuleiroException : Exception
     {
