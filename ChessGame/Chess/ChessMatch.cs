@@ -1,4 +1,5 @@
 ﻿using Board;
+using System.Collections.Generic;
 
 namespace Chess
 {
@@ -8,6 +9,8 @@ namespace Chess
         public int Turno { get; private set; }
         public Cor JogadorAtual { get; private set; }
         public bool Finished { get; private set; }
+        private HashSet<Peca> Pecas;
+        private HashSet<Peca> PecasCapturadas;
 
         public ChessMatch()
         {
@@ -15,6 +18,8 @@ namespace Chess
             Turno = 1;
             JogadorAtual = Cor.Branca;
             Finished = false;
+            Pecas = new HashSet<Peca>();
+            PecasCapturadas = new HashSet<Peca>();
             InsertPieces();
         }
 
@@ -24,6 +29,10 @@ namespace Chess
             piece.IncrementarQtdMovimentos();
             Peca capturedPiece = Tabuleiro.RetirarPeca(destiny);
             Tabuleiro.ColocarPeca(piece, destiny);
+            if (capturedPiece != null)
+            {
+                PecasCapturadas.Add(capturedPiece);
+            }
         }
 
         public void RealizaJogada(Posicao source, Posicao destiny)
@@ -68,6 +77,40 @@ namespace Chess
                 JogadorAtual = Cor.Branca;
             }
         }
+
+        public void ColocarNovaPeca(char coluna, int linha, Peca peca)
+        {
+            Tabuleiro.ColocarPeca(peca, new PosicaoXadrez(coluna, linha).ArrayPosition());
+            Pecas.Add(peca);
+        }
+
+        public HashSet<Peca> ListPecasCapturadas(Cor cor)
+        {
+            HashSet<Peca> listPecas = new HashSet<Peca>();
+            foreach (Peca peca in PecasCapturadas)
+            {
+                if (peca.Cor == cor)
+                {
+                    listPecas.Add(peca);
+                }
+            }
+            return listPecas;
+        }
+
+        public HashSet<Peca> ListPecasJogo(Cor cor)
+        {
+            HashSet<Peca> listPecas = new HashSet<Peca>();
+            foreach (Peca peca in Pecas)
+            {
+                if (peca.Cor.Equals(cor))
+                {
+                    listPecas.Add(peca);
+                }
+            }
+            listPecas.ExceptWith(ListPecasCapturadas(cor));
+            return listPecas;
+        }
+
         private void InsertPieces()
         {
             Tabuleiro.ColocarPeca(new Rei(Cor.Preta, Tabuleiro), new PosicaoXadrez('c', 1).ArrayPosition());

@@ -16,11 +16,7 @@ namespace ChessGame
                     try
                     {
                         Console.Clear();
-                        Tela.ImprimirTabuleiro(chessMatch.Tabuleiro);
-                        Console.WriteLine("\nTurno: " + chessMatch.Turno
-                            + "\nAguardando jogada: " + chessMatch.JogadorAtual
-                            );
-
+                        Tela.ImprimirPartida(chessMatch);
                         Console.Write("\nOrigem: ");
                         Posicao origem = Tela.LerPosicaoXadrez().ArrayPosition();
                         chessMatch.ValidarPosicaoOrigem(origem);
