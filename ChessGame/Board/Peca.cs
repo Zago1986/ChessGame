@@ -2,38 +2,37 @@
 {
     abstract class Peca
     {
-        public Posicao Posicao { get; set; }
-        public Cor Cor { get; protected set; }
-        public int QtdMovimentos { get; protected set; }
-        public Tabuleiro Tabuleiro { get; protected set; }
+        public Posicao posicao { get; set; }
+        public Cor cor { get; protected set; }
+        public int qteMovimentos { get; protected set; }
+        public Tabuleiro tab { get; protected set; }
 
-        public Peca(Cor cor, Tabuleiro tabuleiro)
+        public Peca(Tabuleiro tab, Cor cor)
         {
-            Posicao = null;
-            Cor = cor;
-            Tabuleiro = tabuleiro;
-            QtdMovimentos = 0;
+            this.posicao = null;
+            this.tab = tab;
+            this.cor = cor;
+            this.qteMovimentos = 0;
         }
 
-        public void IncrementarQtdMovimentos()
+        public void incrementarQteMovimentos()
         {
-            QtdMovimentos++;
+            qteMovimentos++;
         }
 
-        public bool IsAble(Posicao posicao)
+        public void decrementarQteMovimentos()
         {
-            Peca peca = Tabuleiro.Peca(posicao);
-            return peca == null || peca.Cor != Cor;
+            qteMovimentos--;
         }
 
-        public bool ExisteMovimentosPossiveis()
+        public bool existeMovimentosPossiveis()
         {
-            bool[,] movimentosPossiveis = MovimentosPossiveis();
-            for (int i = 0; i < Tabuleiro.Linhas; i++)
+            bool[,] mat = movimentosPossiveis();
+            for (int i = 0; i < tab.linhas; i++)
             {
-                for (int j = 0; j < Tabuleiro.Colunas; j++)
+                for (int j = 0; j < tab.colunas; j++)
                 {
-                    if (movimentosPossiveis[i, j])
+                    if (mat[i, j])
                     {
                         return true;
                     }
@@ -42,11 +41,11 @@
             return false;
         }
 
-        public bool PodeMoverPara(Posicao posicao)
+        public bool movimentoPossivel(Posicao pos)
         {
-            return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
+            return movimentosPossiveis()[pos.linha, pos.coluna];
         }
 
-        public abstract bool[,] MovimentosPossiveis();
+        public abstract bool[,] movimentosPossiveis();
     }
 }

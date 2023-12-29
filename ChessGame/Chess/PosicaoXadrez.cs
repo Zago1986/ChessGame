@@ -1,30 +1,26 @@
-﻿using System.Text;
-using Board;
+﻿using Board;
 
 namespace Chess
 {
     internal class PosicaoXadrez
     {
-        public char Coluna { get; set; }
-        public int Linha { get; set; }
+        public char coluna { get; set; }
+        public int linha { get; set; }
 
         public PosicaoXadrez(char coluna, int linha)
         {
-            Coluna = coluna;
-            Linha = linha;
+            this.coluna = coluna;
+            this.linha = linha;
         }
 
-        public Posicao ArrayPosition()
+        public Posicao toPosicao()
         {
-            return new Posicao(8 - Linha, Coluna - 'a');
+            return new Posicao(8 - linha, coluna - 'a');
         }
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(Coluna);
-            sb.Append(Linha);
-            return sb.ToString();
+            return "" + coluna + linha;
         }
     }
 }

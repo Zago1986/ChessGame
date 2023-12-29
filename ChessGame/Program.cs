@@ -9,29 +9,32 @@ namespace ChessGame
         {
             try
             {
-                ChessMatch chessMatch = new ChessMatch();
+                PartidaDeXadrez partida = new PartidaDeXadrez();
 
-                while (!chessMatch.Finished)
+                while (!partida.terminada)
                 {
+
                     try
                     {
                         Console.Clear();
-                        Tela.ImprimirPartida(chessMatch);
-                        Console.Write("\nOrigem: ");
-                        Posicao origem = Tela.LerPosicaoXadrez().ArrayPosition();
-                        chessMatch.ValidarPosicaoOrigem(origem);
+                        Tela.imprimirPartida(partida);
 
-                        bool[,] posicoesPossiveis = chessMatch.Tabuleiro.Peca(origem).MovimentosPossiveis();
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
+                        partida.validarPosicaoDeOrigem(origem);
+
+                        bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
+
                         Console.Clear();
-                        Tela.ImprimirTabuleiro(chessMatch.Tabuleiro, posicoesPossiveis);
-                        Console.WriteLine("\nTurno: " + chessMatch.Turno
-                           + "\nAguardando jogada: " + chessMatch.JogadorAtual
-                           );
-                        Console.Write("\nDestino: ");
-                        Posicao destino = Tela.LerPosicaoXadrez().ArrayPosition();
-                        chessMatch.ValidarPosicaoDestino(origem, destino);
+                        Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
 
-                        chessMatch.RealizaJogada(origem, destino);
+                        Console.WriteLine();
+                        Console.Write("Destino: ");
+                        Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+                        partida.validarPosicaoDeDestino(origem, destino);
+
+                        partida.realizaJogada(origem, destino);
                     }
                     catch (TabuleiroException e)
                     {
@@ -39,12 +42,15 @@ namespace ChessGame
                         Console.ReadLine();
                     }
                 }
-
+                Console.Clear();
+                Tela.imprimirPartida(partida);
             }
-            catch (TabuleiroException e) 
+            catch (TabuleiroException e)
             {
                 Console.WriteLine(e.Message);
             }
+
+            Console.ReadLine();
         }
     }
 }
